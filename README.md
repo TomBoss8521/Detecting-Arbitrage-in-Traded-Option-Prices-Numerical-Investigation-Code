@@ -7,6 +7,10 @@ The code implements both the single and multiple maturity support function tests
 ##  Files
 - `single_maturity.py` – constructs the single maturity support function and checks the contact, derivative and strict decrease conditions.
 - `multiple_maturity.py` - extends the procedure to the current and all later maturities and performs the corresponding joint consistency tests.
+
+## Test Data
+We provide a folder of aritifical test data to see how the different cases run and are classified.
+
 ## Requirements
 - Python 3
 - cvxpy [1,3]  
