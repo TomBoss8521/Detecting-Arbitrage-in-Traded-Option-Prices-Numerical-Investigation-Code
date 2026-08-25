@@ -1,6 +1,6 @@
-''' Single maturity support function arbitrage test.
+''' Single-maturity support function arbitrage test.
 
-This script implements the single maturity Davis-Hobson (2007) 
+This script implements the single-maturity Davis-Hobson (2007) 
 conditions used in my MSc dissertation.
 
 Required input columns:
@@ -70,7 +70,7 @@ prob.solve()
 print('Status:', prob.status)
 
 
-''' Next we check the single maturity arbitrage
+''' Next we check the single-maturity arbitrage
 conditions with the support function just found.
 '''
 
