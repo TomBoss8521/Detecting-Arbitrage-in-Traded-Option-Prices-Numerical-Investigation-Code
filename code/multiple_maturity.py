@@ -1,6 +1,6 @@
-''' Multiple maturity support function arbitrage test.
+''' Multiple-maturity support function arbitrage test.
 
-This script implements the multiple maturity Davis-Hobson (2007) 
+This script implements the multiple-maturity Davis-Hobson (2007) 
 conditions used in my MSc dissertation. For each maturity T_j, 
 the support function is constructed using observations from
 T_j and all later maturities.
@@ -116,7 +116,7 @@ def multiple_maturity_support_func(df):
         # Check whether the solver has found a solution.
         print('Status:', prob.status)
 
-        ''' Next we check the multiple maturity arbitrage
+        ''' Next we check the multiple-maturity arbitrage
         conditions with the support function just found.'''
 
 
@@ -219,7 +219,7 @@ def multiple_maturity_support_func(df):
     # Return the completed results table.
     return results_df
 
-# Apply the multiple maturity test to the original market data we imported.
+# Apply the multiple-maturity test to the original market data we imported.
 results = multiple_maturity_support_func(df)
 
 # Dsiplay the classification results
@@ -254,7 +254,7 @@ condition = (
 # The artificial zero strike point (0,1) is therefore left unchanged.
 df_test.loc[condition, "r"] *= 0.99
 
-# Apply the multiple maturity theorem test to the perturbed dataset.
+# Apply the multiple-maturity theorem test to the perturbed dataset.
 perturbed_results = multiple_maturity_support_func(df_test)
 
 # Display the resulting classifications after perturbation.
