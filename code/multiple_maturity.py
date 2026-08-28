@@ -35,7 +35,7 @@ def multiple_maturity_support_func(df):
     tolerance = 1e-8
 
     # List to store the results for each time we run thorugh the solver and checker.
-    results =[]
+    results = []
 
     ''' Loop through each maturity T_j in chronological order as we have to make sure
     each support function consisitng of the maturities T_j onwards satisfies the conditions.
@@ -70,7 +70,7 @@ def multiple_maturity_support_func(df):
         r = np.array([np.min(r_all[np.isclose(k_all, x, atol=1e-10, rtol=1e-10)]) for x in k])
 
         # Calculate the number of distinct strikes in the joint strike grid
-        n=len(k)
+        n = len(k)
 
 
         ''' Here we construct the greatest decreasing support function 
@@ -154,7 +154,7 @@ def multiple_maturity_support_func(df):
         # Find the first strike with a zero call price.
         # Search the current maturity for the first strike value whose normalised
         # price is zero (with our numerical tolerance included).
-        zero_index  = np.where(r_current[1:] <= tolerance)[0]
+        zero_index = np.where(r_current[1:] <= tolerance)[0]
 
         # Check whether such a zero price exists, if so record the strike of the
         # first zero priced current maturity option.
