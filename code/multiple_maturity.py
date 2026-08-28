@@ -20,7 +20,7 @@ import pandas as pd
 # Import the combined normalised strike and call price data.
 # The data includes the artificial zero strike point (0,1)
 # for each maturity.
-df = pd.read_csv("github_stuff/Test Data/multiple_contact_mia.csv")
+df = pd.read_csv("multiple_maturity_data.csv")
 df['maturity'] = pd.to_datetime(df['maturity'])
 
 
