@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 
 # Import the combined normalised strike and call price data.
-# The data includes the artificial zero strike point (0,1)
+# The data includes the artificial zero-strike point (0,1)
 # for each maturity.
 df = pd.read_csv("multiple_maturity_data.csv")
 df['maturity'] = pd.to_datetime(df['maturity'])
@@ -28,18 +28,18 @@ df['maturity'] = pd.to_datetime(df['maturity'])
 # check the theorem conditions.
 def multiple_maturity_support_func(df):
 
-    # Extract all distinc maturity dates and arrange them in increasing order. 
+    # Extract all distinct maturity dates and arrange them in increasing order. 
     maturities = np.sort(df['maturity'].unique())
 
     # Set the numerical tolerance used for comparisons.
     tolerance = 1e-8
 
-    # List to store the results for each time we run thorugh the solver and checker.
+    # List to store the results for each time we run through the solver and checker.
     results = []
 
     ''' Loop through each maturity T_j in chronological order as we have to make sure
-    each support function consisitng of the maturities T_j onwards satisfies the conditions.
-    We do this until we have run out of maturities. If we had three maturities labled as T_1, T_2 
+    each support function consisting of the maturities T_j onwards satisfies the conditions.
+    We do this until we have run out of maturities. If we had three maturities labelled as T_1, T_2 
     and T_3, then this would run three times using the joint sets of (T_1,T_2,T_3), (T_2,T_3)
     and finally (T_3).
     '''
@@ -88,7 +88,7 @@ def multiple_maturity_support_func(df):
 
         constraints += [R <= r] # Below observed prices.
         constraints += [R >= 0] # Non-negativity.
-        constraints += [R[0] == 1] # Artificial zero strike point.
+        constraints += [R[0] == 1] # Artificial zero-strike point.
 
 
         # Monotonicity
@@ -108,7 +108,7 @@ def multiple_maturity_support_func(df):
         objective = cp.Maximize(cp.sum(R))
 
         # Combine the objective and constraints to form 
-        # the optimisation problem and slove it.
+        # the optimisation problem and solve it.
         prob = cp.Problem(objective, constraints)
         prob.solve()
 
@@ -157,7 +157,7 @@ def multiple_maturity_support_func(df):
         zero_index = np.where(r_current[1:] <= tolerance)[0]
 
         # Check whether such a zero price exists, if so record the strike of the
-        # first zero priced current maturity option.
+        # first zero-priced current maturity option.
         if len(zero_index) > 0:
             z_0 = zero_index[0] + 1
             last_k = k_current[z_0]
@@ -173,7 +173,7 @@ def multiple_maturity_support_func(df):
         R_rel = R_hat[relevant]
 
         # Check that the support function is strictly decreasing over the required interval
-        #(with our numerical tolerance included).
+        # (with our numerical tolerance included).
         strict_decrease = np.all(np.diff(R_rel) < -tolerance)
 
         # 2. Contact condition: R(k_i) = r_i (with our numerical tolerance included).
@@ -197,11 +197,11 @@ def multiple_maturity_support_func(df):
         else:
             arb_type = 'MIA'
 
-        # Additional code if you want to see the maximum contact error bewteen the support
+        # Additional code if you want to see the maximum contact error between the support
         # function and current maturity points.
         # max_contact_error = np.max(np.abs(R_current - r_current))
         
-        # Store the theorem conditions for the curent maturity T_j.
+        # Store the theorem conditions for the current maturity T_j.
         # Note that each row refers to the joint dataset consisting of T_j
         # together with all later maturities.
         results.append({
@@ -213,7 +213,7 @@ def multiple_maturity_support_func(df):
         # 'Max contact error': max_contact_error 
         })
 
-    # Convert the list of results into a pandas table.
+    # Convert the list of results into a Pandas table.
     results_df = pd.DataFrame(results)
 
     # Return the completed results table.
@@ -222,7 +222,7 @@ def multiple_maturity_support_func(df):
 # Apply the multiple-maturity test to the original market data we imported.
 results = multiple_maturity_support_func(df)
 
-# Dsiplay the classification results
+# Display the classification results.
 print(results)
 
 
@@ -241,9 +241,9 @@ maturities = np.sort(df_test["maturity"].unique())
 # Select the final maturity, which is September 2027 in the empirical example.
 september = maturities[-1]
 
-# Define the observations to be perturbed:
+# Define the observations to be perturbed;
 # only positive strike options belonging to the final maturity are selected.
-# This excludes the artificial zero strike point as it would automatically fail
+# This excludes the artificial zero-strike point as it would automatically fail
 # the conditions if we perturb this.
 condition = (
     (df_test["maturity"] == september)
@@ -251,7 +251,7 @@ condition = (
  )
 
 # Reduce each selected September normalised option price by 1%.
-# The artificial zero strike point (0,1) is therefore left unchanged.
+# The artificial zero-strike point (0,1) is therefore left unchanged.
 df_test.loc[condition, "r"] *= 0.99
 
 # Apply the multiple-maturity theorem test to the perturbed dataset.
