@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 # Import the normalised strike and call price data.
-# The data includes the artificial zero strike point (0,1).
+# The data includes the artificial zero-strike point (0,1).
 df = pd.read_csv("single_maturity_data.csv")
 
 # Create a NumPy array for the k and r values.
@@ -31,7 +31,7 @@ n = len(k)
 
 ''' Here we construct the greatest decreasing support function
 using the CVXPY formulation. R[i] represents R_i discussed in 
-Section 7.2.1 of the dissertaion. The solver stores a NumPy 
+Section 7.2.1 of the dissertation. The solver stores a NumPy 
 array of the k and r values used to construct the support function it finds. 
 '''
 
@@ -62,7 +62,7 @@ for i in range(n-2):
 objective = cp.Maximize(cp.sum(R))
 
 # Combine the objective and constraints to form 
-# the optimisation problem and slove it.
+# the optimisation problem and solve it.
 prob = cp.Problem(objective, constraints)
 prob.solve()
 
@@ -86,7 +86,7 @@ tolerance = 1e-8
 zero_index  = np.where(r[1:] <= tolerance)[0]
 
 # If no such point exists we use the last strike.
-# The +/- 1 below are solely for python indexing issues.
+# The +/- 1 below are solely for Python indexing issues.
 if len(zero_index) > 0:
     z_0 = zero_index[0] + 1
 else:
